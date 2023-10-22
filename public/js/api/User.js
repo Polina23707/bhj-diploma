@@ -8,8 +8,11 @@ class User {
    * Устанавливает текущего пользователя в
    * локальном хранилище.
    * */
+  constructor() {
+    this.url = '/user';
+  }
   static setCurrent(user) {
-
+    localStorage.setItem('user', user)
   }
 
   /**
@@ -17,7 +20,7 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
-
+    delete localStorage.user;
   }
 
   /**
@@ -25,7 +28,8 @@ class User {
    * из локального хранилища
    * */
   static current() {
-
+    console.log(localStorage.user);
+    return localStorage.user;
   }
 
   /**
@@ -33,6 +37,8 @@ class User {
    * авторизованном пользователе.
    * */
   static fetch(callback) {
+    this.callback = callback;
+    // createRequest(User);
 
   }
 
@@ -75,3 +81,9 @@ class User {
 
   }
 }
+
+let user1 = new User;
+console.log(user1);
+user1.fetch(( err, response ) => {
+  console.log( response.user.id ); // 2
+});
