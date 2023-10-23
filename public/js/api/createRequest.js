@@ -12,29 +12,43 @@ const createRequest = (options = {}) => {
     if (method === 'GET') {
       let dataArray = [];
       Array.from(Object.entries(data)).forEach((pair) => dataArray.push(pair.join('=')));
-      console.log(dataArray.join('&'));
-      console.log(url + '?' + dataArray.join('&'));
+      // console.log(dataArray.join('&'));
+      // console.log(url + '?' + dataArray.join('&'));
       xhr.open(method, url + '?' + dataArray.join('&'));
+      xhr.responseType = 'json';
       xhr.send();
   
     } else {
       const formData = new FormData;
       Array.from(Object.entries(data)).forEach((pair) => formData.append(pair[0], pair[1]));
       xhr.open( method, url );
+      xhr.responseType = 'json';
       xhr.send( formData );
     }
-    callback(err, response);
+    
+    xhr.onload = function() {
+      // console.log(callback);
+      // console.log(xhr.response.success);
+      if (!!callback && xhr.response?.success) {
+        callback(null, xhr.response);
+        // console.log('Ответ: ' + xhr.response);
+      }
+    }
+
 
   } catch (err) {
     callback(err);
+    // console.log('Ошибка: ' + err);
   }
-
-  xhr.responseType = 'json';
-  console.log('Запрос отправили и получили');
-  console.log(xhr.response);
+  // console.log('Запрос отправили и получили');
+  // console.log(xhr.response);
 };
 
-console.log('CreateRequest start')
+
+
+
+// ПРОВЕРКА
+// console.log('CreateRequest start')
 // createRequest({
 //   url: 'http://localhost:8000',
 //   data: {
@@ -73,4 +87,4 @@ console.log('CreateRequest start')
 //   }
 // });
 
-console.log('CreateRequest end')
+// console.log('CreateRequest end')
