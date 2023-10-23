@@ -7,23 +7,46 @@ class Account extends Entity {
   /**
    * Получает информацию о счёте
    * */
-  constructor(url) {
-    super(url);
-    this.url = '/account';
-  }
+  static URL = '/account';
   
   static get(id = '', callback){
-    console.log(id);
-    console.log(callback);
+
     this.callback = callback;
     this.id = id;
-    // console.log('Account start');
-    console.log(Account.list);
+    this.method = 'GET'
 
-    createRequest(Account);
+    createRequest({
+      url: this.URL,
+      method: this.method,
+      // responseType: 'json',
+      data: {
+        id: id
+      },
+      // id,
+      callback
+    });
+    // console.log('Account start');
+  
   }
 }
 
-let account1 = new Account;
-// console.log(account1);
-account1.get('1', ( err, response ) => console.log(err, response));
+
+
+// ПРОВЕРКА
+// Account.list({ mail: 'ivan@biz.pro' }, ( err, response ) => console.log(err, response));
+// Account.create({ mail: 'ivan@biz.pro' }, ( err, response ) => console.log(err, response));
+// Account.remove({ mail: 'ivan@biz.pro' }, ( err, response ) => console.log(err, response));
+// // console.log('get');
+// Account.get(2, ( err, response ) => console.log(err, response));
+
+// Entity.get( 21, function ( err, response ) {
+//   console.log(err, response);
+//   // ... получили ответ
+// });
+//  Entity.get( 1, (err, response) => {
+//   console.log( 'Ошибка, если есть', err );
+//   console.log( 'Данные, если нет ошибки', response );
+// });
+// let account1 = new Account;
+// // console.log(account1);
+// account1.get('1', ( err, response ) => console.log(err, response));
