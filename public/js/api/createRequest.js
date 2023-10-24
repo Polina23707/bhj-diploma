@@ -31,51 +31,9 @@ const createRequest = (options = {}) => {
   xhr.onload = function() {
     if (!!callback && xhr.response?.success) {
       callback(null, xhr.response);
+
     }
+    console.log(xhr.response);
+    return xhr.response;
   }
 };
-
-
-
-
-// ПРОВЕРКА
-// console.log('CreateRequest start')
-// createRequest({
-//   url: 'http://localhost:8000',
-//   data: {
-//     mail: 'ivan@biz.pro',
-//     password: 'odinodin'
-//   },
-//   method: 'GET',
-// });
-
-// createRequest({
-//   url: 'http://localhost:8000',
-//   data: {
-//     mail: 'ivan@biz.pro',
-//     password: 'odinodin'
-//   },
-//   method: 'POST',
-// });
-
-// createRequest({
-//   url: 'https://example.com',
-//   method: 'GET',
-//   callback: ( err, response ) => {
-//     /*
-//       при успешном выполнении err = null, response содержит данные ответа
-//     */
-//     console.log( err ); // null
-//     console.log( response ); // ответ
-//   }
-// });
-
-// createRequest({
-//   url: 'https://example.com',
-//   method: 'GET',
-//   callback: ( err, response ) => {
-//     console.log( err ); // объект ошибки
-//   }
-// });
-
-// console.log('CreateRequest end')
