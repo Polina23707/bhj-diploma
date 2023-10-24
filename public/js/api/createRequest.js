@@ -4,44 +4,35 @@
  * */
 const createRequest = (options = {}) => {
   const {url, data, method, callback} = options;
-  // console.log(url, data, method);
+
   const xhr = new XMLHttpRequest();
+  xhr.responseType = 'json';
+  let dataArray = [];
+  const formData = new FormData;
+
+  if (data) {
+    Array.from(Object.entries(data)).forEach((pair) => dataArray.push(pair.join('=')));
+    Array.from(Object.entries(data)).forEach((pair) => formData.append(pair[0], pair[1]));
+  }
 
   try {
-    // console.log(Array.from(Object.entries(data)));
     if (method === 'GET') {
-      let dataArray = [];
-      Array.from(Object.entries(data)).forEach((pair) => dataArray.push(pair.join('=')));
-      // console.log(dataArray.join('&'));
-      // console.log(url + '?' + dataArray.join('&'));
       xhr.open(method, url + '?' + dataArray.join('&'));
-      xhr.responseType = 'json';
       xhr.send();
-  
     } else {
-      const formData = new FormData;
-      Array.from(Object.entries(data)).forEach((pair) => formData.append(pair[0], pair[1]));
       xhr.open( method, url );
-      xhr.responseType = 'json';
       xhr.send( formData );
     }
-    
-    xhr.onload = function() {
-      // console.log(callback);
-      // console.log(xhr.response.success);
-      if (!!callback && xhr.response?.success) {
-        callback(null, xhr.response);
-        // console.log('Ответ: ' + xhr.response);
-      }
-    }
-
 
   } catch (err) {
     callback(err);
-    // console.log('Ошибка: ' + err);
   }
-  // console.log('Запрос отправили и получили');
-  // console.log(xhr.response);
+  
+  xhr.onload = function() {
+    if (!!callback && xhr.response?.success) {
+      callback(null, xhr.response);
+    }
+  }
 };
 
 
