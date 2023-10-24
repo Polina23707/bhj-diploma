@@ -4,16 +4,7 @@
  * Имеет свойство URL со значением '/transaction'
  * */
 class Transaction extends Entity {
-  
   static URL = '/transaction';
-
-  // createRequest({
-  //   url: this.URL,
-  //   method: 'DELETE',
-  //   responseType: 'json',
-  //   data,
-  //   callback
-  // })
 }
 
 // ПРОВЕРКА
