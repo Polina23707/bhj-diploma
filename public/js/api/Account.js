@@ -10,23 +10,11 @@ class Account extends Entity {
   static URL = '/account';
   
   static get(id = '', callback){
-
-    this.callback = callback;
-    this.id = id;
-    this.method = 'GET'
-
     createRequest({
-      url: this.URL,
-      method: this.method,
-      // responseType: 'json',
-      data: {
-        id: id
-      },
-      // id,
+      url: this.URL + '/' + id,
+      method: 'GET',
       callback
     });
-    // console.log('Account start');
-  
   }
 }
 
