@@ -28,6 +28,7 @@ class User {
    * */
   static current() {
     let currentUser = JSON.parse(localStorage.getItem('user'));
+    // console.log(currentUser);
     return currentUser;
   }
 
@@ -88,7 +89,7 @@ class User {
           }
           callback(err, response);
         }
-      });  
+      }); 
   }
 
   /**
@@ -109,74 +110,3 @@ class User {
     });
   }
 }
-
-
-
-
-// ПРОВЕРКА
-// let user1 = new User;
-// console.log(user1);
-// user1.fetch(( err, response ) => {
-//   console.log( response.user.id ); // 2
-// });
-
-// const user = {
-//   id: 12,
-//   name: 'Vlad'
-// };
-
-// User.setCurrent( user );
-
-// console.log( localStorage.user ); // строка "{"id":12,"name":"Vlad"}
-
-// const user = {
-//   id: 12,
-//   name: 'Vlad'
-// };
-
-// User.setCurrent( user );
-// const current = User.current();
-
-// console.log( current ); // объект { id: 12, name: 'Vlad' }
-
-// const user = {
-//   id: 12,
-//   name: 'Vlad'
-// };
-
-// User.setCurrent( user );
-// let current = User.current();
-// console.log( current ); // объект { id: 12, name: 'Vlad' }
-
-// User.unsetCurrent();
-
-// current = User.current();
-// console.log( current ); // undefined
-
-// User.login( {
-//   mail: 'ivan@biz.pro',
-//   password: 'odinodin'
-// }, (err, response) => {
-//   console.log( 'Ошибка, если есть', err );
-//   console.log( 'Данные, если нет ошибки', response );
-// });
-
-
-
-// User.fetch((err, response) => {
-//   console.log( 'Ошибка, если есть', err );
-//   console.log( 'Данные, если нет ошибки', response );
-// });
-
-// User.fetch(( err, response ) => {
-//   console.log( response );
-//   console.log( response.user.id ); // 2
-// });
-
-// console.log( User.current()); // { id: 47, name: 'Vlad' }
-// User.fetch(( err, response ) => {
-//   // Оказалось, что пользователь уже больше не авторизован (истекла сессия)
-//   console.log( response.user ); // undefined
-//   console.log( response.success ); // false
-//   console.log( User.current() ); // undefined
-// });
