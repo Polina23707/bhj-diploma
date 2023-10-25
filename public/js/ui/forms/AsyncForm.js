@@ -13,7 +13,6 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor(element) {
-    // console.log(element);
     if (!element) {
       throw new Error('Пустой элемент');
     }
@@ -25,12 +24,9 @@ class AsyncForm {
    * Необходимо запретить отправку формы и в момент отправки
    * вызывает метод submit()
    * */
-  registerEvents() {
-    // console.log(this.element);
-    
+  registerEvents() {    
     this.element.addEventListener('submit', (e) => {
       e.preventDefault();
-      // console.log('submit');
       this.submit();
     })
 
@@ -44,17 +40,13 @@ class AsyncForm {
    * }
    * */
   getData() {
-    // console.log(this.element);
     const form = this.element;
     const formData = new FormData(form);
-    
-    // console.log('get data'); 
+
     Array.from(form.children).forEach((item) => {
       formData[Array.from(item.children)[0].getAttribute('name')] = Array.from(item.children)[0].value; 
     })
-      // console.log(formData); 
       return formData;
-    // console.log(formData);
   }
 
   onSubmit(options){
@@ -66,26 +58,7 @@ class AsyncForm {
    * данные, полученные из метода getData()
    * */
   submit() {
-    // console.log('metod');
     this.onSubmit(this.getData());
   }
 }
 
-// const async = new AsyncForm(Array.from(document.querySelectorAll('.form'))[0]);
-// async.getData();
-// const forms = Array.from(document.querySelectorAll('.form'));
-// forms.forEach((form) => {
-//   form.addEventListener('submit', e => {
-//     e.preventDefault();
-//     let data ={};
-//     Array.from(form.children).forEach((item) => {
-//       console.log(Array.from(item.children)[0]);
-//       let name = Array.from(item.children)[0].getAttribute('name');
-//       let value = Array.from(item.children)[0].value;
-//       console.log(name, value);
-//       data[name] = value;
-//     })
-//     console.log(data);
-    
-//   })
-// })
