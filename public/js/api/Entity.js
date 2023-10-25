@@ -46,31 +46,3 @@ class Entity {
     });
   }
 }
-
-
-// ПРОВЕРКА
-// console.log('Entity start');
-
-// let entity1 = new Entity;
-// console.log( entity1 );
-// console.log( entity1.url ); 
-// entity1.create({ mail: 'ivan@biz.pro' }, ( err, response ) => console.log(err, response));
-// console.log( entity1 );
-// console.log('Entity end');
-
-// console.log( Entity.URL );
-
-// Entity.list( {
-//   mail: 'ivan@biz.pro',
-//   password: 'odinodin'
-// }, ( err, response ) => console.log(err, response));
-
-// Entity.create( {
-//   mail: 'ivan@biz.pro',
-//   password: 'odinodin'
-// }, ( err, response ) => console.log(err, response));
-
-// Entity.remove( {
-//   mail: 'ivan@biz.pro',
-//   password: 'odinodin'
-// }, ( err, response ) => console.log(err, response));
