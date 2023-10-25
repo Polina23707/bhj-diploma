@@ -31,9 +31,6 @@ const createRequest = (options = {}) => {
   xhr.onload = function() {
     if (!!callback && xhr.response?.success) {
       callback(null, xhr.response);
-
     }
-    console.log(xhr.response);
-    return xhr.response;
   }
 };
