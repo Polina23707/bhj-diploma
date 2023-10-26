@@ -19,8 +19,7 @@ class AccountsWidget {
     }
     this.element = element;
     this.update();
-    this.registerEvents();
-    
+    // this.registerEvents();
   }
 
   /**
@@ -31,23 +30,13 @@ class AccountsWidget {
    * вызывает AccountsWidget.onSelectAccount()
    * */
   registerEvents() {
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const accounts = Array.from(document.querySelectorAll('.account')); // Не работает
-    // const test = this.element.querySelectorAll('.account');
-    console.log(111, accounts);
-    // console.log(222, this.element);
-    });
-    
-    
-
-    
-    // accounts.forEach((account) => {
-    //   account.onclick = function() {
-    //     console.log('account click');
-    //     this.onSelectAccount(account);
-    //   }
-    // })
+    const accounts = Array.from(document.querySelectorAll('.account'));
+    accounts.forEach((account) => {
+      account.addEventListener('click', (e) => {
+        e.preventDefault();
+        this.onSelectAccount(account);
+      })
+    })
 
     const createAccount = document.querySelector('.create-account ');
     createAccount.onclick = function() {
@@ -72,6 +61,7 @@ class AccountsWidget {
         if (response.success) {
             this.clear()
             this.renderItem(response.data);
+            this.registerEvents();
           }
       });
     }
@@ -95,13 +85,12 @@ class AccountsWidget {
    * Вызывает App.showPage( 'transactions', { account_id: id_счёта });
    * */
   onSelectAccount( element ) {
-    console.log(element);
-    const accounts = Array.from(document.querySelectorAll('.account'));
-    console.log(accounts);
-    // element.classList.add('active');
-
-    // console.log(User.current());
-    // App.showPage( 'transactions', { account_id: id_счёта })
+    Array.from(this.element.children).forEach((acc) => acc.classList.remove('active'));
+    element.classList.add('active');
+    
+    let userId = User.current().id;
+    let accountId = element.getAttribute('data-id');
+    App.showPage( 'transactions', { userId: accountId })
   }
 
   /**
