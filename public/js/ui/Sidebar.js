@@ -42,10 +42,10 @@ class Sidebar {
       App.getModal('register').open();
     }
     sidebarItems[2].onclick = function() {
-      console.log('logout');
-      User.logout((response) => {
-        console.log(response);
-        App.setState('init');
+      User.logout((err, response) => {
+        if(response.success) {
+          App.setState('init');
+        }
       });
     }
   }
