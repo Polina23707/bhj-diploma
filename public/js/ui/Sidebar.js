@@ -34,14 +34,17 @@ class Sidebar {
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
-    const sidebarItems = Array.from(document.querySelectorAll('.menu-item'));
-    sidebarItems[0].onclick = function() {
+    const sidebarLogin = document.querySelector('.menu-item_login');
+    const sidebarRegister = document.querySelector('.menu-item_register');
+    const sidebarLogout = document.querySelector('.menu-item_logout');
+
+    sidebarLogin.onclick = function() {
       App.getModal('login').open();
     }
-    sidebarItems[1].onclick = function() {
+    sidebarRegister.onclick = function() {
       App.getModal('register').open();
     }
-    sidebarItems[2].onclick = function() {
+    sidebarLogout.onclick = function() {
       User.logout((err, response) => {
         if(response.success) {
           App.setState('init');
