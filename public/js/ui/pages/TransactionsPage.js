@@ -22,7 +22,7 @@ class TransactionsPage {
    * Вызывает метод render для отрисовки страницы
    * */
   update() {
-    this.render();
+    this.render(this.lastOption);
   }
 
   /**
@@ -36,20 +36,15 @@ class TransactionsPage {
     const transactionRemoveBtns = Array.from(document.querySelectorAll('.transaction__remove'));
 
     accountRemoveBtn.onclick = () => {
-      // console.log(accountRemoveBtn);
       this.removeAccount();
     }
 
     const content = document.querySelector('.content');
-    // console.log(content);
-    // console.log((content.children));
-    // Array.from(content.children).forEach((child) => child.remove());
-
-    transactionRemoveBtns.forEach((btn) => {
-      btn.onclick = (e) => {
-        e.preventDefault;
-        console.log('delite transaction');
-      //   // removeTransaction(transactionRemoveBtn.getAttribute('data-id'));
+    content.addEventListener(('click'), (e) => {
+      e.preventDefault();
+      let target = e.target.closest('.transaction__remove');
+      if (!!target) {
+        this.removeTransaction(target.getAttribute('data-id'));
       }
     })
   }
@@ -91,11 +86,14 @@ class TransactionsPage {
    * либо обновляйте текущую страницу (метод update) и виджет со счетами
    * */
   removeTransaction( id ) {
-    Transaction.remove(id, (err, response) => {
-      if (response.success) {
-        App.update(this.element);
-      }
-    });
+    if (confirm('Вы действительно хотите удалить транзакцию?')) {
+      Transaction.remove({id}, (err, response) => {
+        if (response.success) {
+          App.update();
+        }
+      });
+    }
+    
   }
 
   /**
@@ -105,20 +103,21 @@ class TransactionsPage {
    * в TransactionsPage.renderTransactions()
    * */
   render(options){
-    let userId = '';
+    let accountId = '';
+    this.lastOption = options;
 
     if (options) {
-      userId = options.userId;
+      accountId = options.userId;
     }
 
-    Account.get(userId, (err, response) => {
+    Account.get(accountId, (err, response) => {
       if (response.success) {
         this.renderTitle(response.data.name);
       }
     });
 
-    Transaction.list({account_id: userId}, (err, response) => {
-        this.renderTransactions(response.data);
+    Transaction.list({account_id: accountId}, (err, response) => {
+      this.renderTransactions(response.data);
       });
   }
 
@@ -128,9 +127,10 @@ class TransactionsPage {
    * Устанавливает заголовок: «Название счёта»
    * */
   clear() {
-    this.renderTransaction([]);
+    this.renderTransactions([]);
     const title = document.querySelector('.content-title');
     this.renderTitle('Название счёта');
+    this.lastOption = '';
   }
 
   /**
