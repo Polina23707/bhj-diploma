@@ -21,9 +21,7 @@ class CreateTransactionForm extends AsyncForm {
     
     Account.list(User.current(), (err, response) => {
       if (response.success) {
-        let accountList = response.data;
-        const optionsHTML = accountList.reduce((total, current) => total + `<option value="${current.id}">${current.name}</option>`, '')
-        select.innerHTML = optionsHTML;
+        select.innerHTML = response.data.reduce((total, current) => total + `<option value="${current.id}">${current.name}</option>`, '');
       }
     })
   }

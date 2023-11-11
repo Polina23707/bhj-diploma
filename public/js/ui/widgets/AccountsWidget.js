@@ -87,7 +87,6 @@ class AccountsWidget {
     
     element.classList.add('active');
     
-    let userId = User.current().id;
     let accountId = element.getAttribute('data-id');
     App.showPage( 'transactions', { userId: accountId })
   }

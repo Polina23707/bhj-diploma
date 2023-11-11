@@ -33,7 +33,6 @@ class TransactionsPage {
    * */
   registerEvents() {
     const accountRemoveBtn = document.querySelector('.remove-account');
-    const transactionRemoveBtns = Array.from(document.querySelectorAll('.transaction__remove'));
 
     accountRemoveBtn.onclick = () => {
       this.removeAccount();
@@ -128,7 +127,6 @@ class TransactionsPage {
    * */
   clear() {
     this.renderTransactions([]);
-    const title = document.querySelector('.content-title');
     this.renderTitle('Название счёта');
     this.lastOption = '';
   }
@@ -154,8 +152,7 @@ class TransactionsPage {
       hour: "2-digit",
       minute: "2-digit"
     }
-    const newDate = currentDate.toLocaleString('ru-RU', options);
-    return newDate;
+    return currentDate.toLocaleString('ru-RU', options);
   }
 
   /**
@@ -163,7 +160,7 @@ class TransactionsPage {
    * item - объект с информацией о транзакции
    * */
   getTransactionHTML(item){
-    const {account_id, created_at, id, name, sum, type, user_id} = item;
+    const {created_at, id, name, sum, type} = item;
     let accClass = 'transaction_expense';
     if (type === 'income') {
       accClass = 'transaction_income';
